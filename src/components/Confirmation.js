@@ -2,14 +2,24 @@
 import React, { Component } from 'react';
 
 class Confirmation extends Component{
+    constructor(props){
+        super(props);
+        this.state={
+            clas:'',
+            
+        }
+    }
     saveAndContinue = (e) => {
         e.preventDefault();
         this.props.nextStep();
     }
 
     back  = (e) => {
-        e.preventDefault();
-        this.props.prevStep();
+        this.setState({clas:'transitback'});
+        setTimeout(function(){this.setState({clas:'transit'})}.bind(this),300);
+        
+        
+        setTimeout(function(){this.props.prevStep()}.bind(this),1000);
     }
 
     render(){
@@ -27,7 +37,7 @@ class Confirmation extends Component{
                 <li class="active">Account Setup</li>
             </ul>
                 
-                <fieldset>
+                <fieldset className={this.state.clas}>
                 <h2 class="fs-title">Create your account</h2>
                 <h3 class="fs-subtitle">Fill in your credentials</h3>
                 <input type="text" name="email" placeholder="Email"/>
